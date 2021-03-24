@@ -10,3 +10,16 @@
 }
 
 /* Include any custom CSS styling here! */
+
+.chart-title {
+    text-anchor: middle;
+    font-size: 15px;
+}
+
+.axis-label {
+    font-size: 12px;
+}
+
+.data-label {
+    font-size: 10px;
+}
