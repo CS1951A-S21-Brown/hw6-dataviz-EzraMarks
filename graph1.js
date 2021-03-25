@@ -44,13 +44,13 @@
     
         // Creates a linear scale for the x axis (number of occurrences)
         const max = d3.max(data, d => d["count"]);
-        let x = d3.scaleLinear()
+        const x = d3.scaleLinear()
             .domain([0, max])
             .range([0, innerWidth]);
     
         // Creates a scale band for the y axis (genre)
         yDomain = data.map(d => d["genre"])
-        let y = d3.scaleBand()
+        const y = d3.scaleBand()
             .domain(yDomain)
             .range([0, innerHeight])
             .padding(0.1); // Improves readability
@@ -85,7 +85,7 @@
             .attr("x", d => x(d.count) + 10) // Adds a small offset to the right edge of the bar
             .attr("y", d => y(d["genre"]) + 12) // Adds a small offset to the top edge of the bar
             .classed("data-label", true)
-            .style("text-anchor", "start")
+            .style("text-anchor", "start");
             
         // Adds x-axis label
         svg.append("text")
