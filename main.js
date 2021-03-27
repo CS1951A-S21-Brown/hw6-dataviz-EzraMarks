@@ -18,6 +18,7 @@ graph2.maxNumTicks = 5; // NOTE: Must be multiple of 2 or 5
 const graph3 = {};
 graph3.width = MAX_WIDTH / 2;
 graph3.height = 575;
+graph3.margin = margin;
 
 
 let startYear = parseInt(document.getElementById("start-year").value);
