@@ -14,22 +14,36 @@ graph3.titleLabel = graph3.svg.append("text");
 graph3.edgesRef = graph3.svg.append("g");
 graph3.nodesRef = graph3.svg.append("g");
 
-graph3.cleanData = (data) => { // TODO
-    data = {
-        nodes: [
-            {actor: "Myriel"},
-            {actor: "Napoleon"},
-            {actor: "Mlle.Baptistine"},
-            {actor: "Mme.Magloire"},
-            {actor: "CountessdeLo"}
-        ],
-        edges: [
-            {source: "Napoleon", target: "Myriel", movie: "New Republic"},
-            {source: "Mme.Magloire", target: "Myriel", movie: "New Republic"},
-            {source: "CountessdeLo", target: "Myriel", movie: "New Republic"},
-            {source: "Mlle.Baptistine", target: "CountessdeLo", movie: "New Republic"}
-        ]
-    }
+graph3.cleanData = (data) => {
+    const coworkersDict = {};
+    const year = 1994; // TODO Make variable
+
+    data.forEach(show => {
+        if (show["release_year"] != year) return;
+        const coworkersString = show["cast"];
+        const coworkersList = coworkersString.split(", ");
+        coworkersList.forEach(actor => {
+            if (!coworkersDict[actor]) {
+                coworkersDict[actor] = new Set()
+            }
+            coworkersList.forEach(coworker => coworkersDict[actor].add(coworker));
+        });
+    });
+
+    const nodesList = Object.keys(coworkersDict).map(actor => {
+        return {"actor": actor};
+    });
+
+    const edgesList = []
+    Object.keys(coworkersDict).forEach(actor => {
+        coworkers = coworkersDict[actor];
+        coworkers.forEach(coworker => {
+            edgesList.push({"source": actor, "target": coworker})
+        })
+    })
+
+    data = {"nodes": nodesList, "edges": edgesList};
+    console.log(data);
 
     return data;
 }
@@ -73,8 +87,10 @@ graph3.render = (startYear, endYear) => {
         // Links together nodes and edges in the simulation
         const d3Simulation = d3.forceSimulation(nodeObjects)
             .force("link", d3.forceLink(edgeObjects).id(d => d["actor"]))
-            .force("charge", d3.forceManyBody())
-            .force("center", d3.forceCenter(graph3.innerWidth / 2, graph3.innerHeight / 2));
+            .force("charge", d3.forceManyBody().strength(-50))
+            .force("center", d3.forceCenter(graph3.innerWidth / 2, graph3.innerHeight / 2))
+            .force("x", d3.forceX().strength(0.1))
+            .force("y", d3.forceY().strength(0.1));
         
         // Renders the edges
         const edges = graph3.edgesRef.selectAll("line").data(edgeObjects);
@@ -87,16 +103,25 @@ graph3.render = (startYear, endYear) => {
             .attr("stroke-width", 4);
         edges.exit().remove();
 
-        // Renders the nodes
-        const nodes = graph3.nodesRef.selectAll("circle").data(nodeObjects);
-        nodes.enter()
+        // Renders the node circles
+        const nodeCircles = graph3.nodesRef.selectAll("circle").data(nodeObjects);
+        nodeCircles.enter()
             .append("circle")
-            .merge(nodes)
-            .text(d => d["actor"])
+            .merge(nodeCircles)
             .attr("r", 10)
             .attr("fill", "blue")
             .call(graph3.drag(d3Simulation));
-        nodes.exit().remove();
+        nodeCircles.exit().remove();
+        
+        // Renders the node labels
+        const nodeLabels = graph3.nodesRef.selectAll("text").data(nodeObjects);
+        nodeLabels.enter()
+            .append("text")
+            .merge(nodeLabels)
+            .text(d => d["actor"])
+            .classed("unselectable", true);
+        nodeLabels.exit().remove();
+        
 
         // Updates the position of the nodes and edges on every tick of the simulation
         d3Simulation.on("tick", () => {
@@ -109,6 +134,10 @@ graph3.render = (startYear, endYear) => {
             graph3.nodesRef.selectAll("circle").data(nodeObjects)
                 .attr("cx", d => d.x)
                 .attr("cy", d => d.y);
+
+            graph3.nodesRef.selectAll("text").data(nodeObjects)
+                .attr("x", d => d.x)
+                .attr("y", d => d.y);
         })
 
         // Adds chart title
