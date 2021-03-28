@@ -13,10 +13,14 @@ graph3.svg = d3.select("#graph3")
 graph3.titleLabel = graph3.svg.append("text");
 graph3.edgesRef = graph3.svg.append("g");
 graph3.nodesRef = graph3.svg.append("g");
+graph3.tooltip = d3.select("#graph3")
+    .append("div")
+    .classed("tooltip", true)
+    .style("opactity", 0);
 
 graph3.cleanData = (data) => {
     const coworkersDict = {};
-    const year = 2000; // TODO Make variable
+    const year = 1994; // TODO Make variable
 
     data.forEach(show => {
         if (show["type"] != "Movie") return;
@@ -78,6 +82,34 @@ graph3.drag = d3simulation => {
         .on("end", endDrag);
 }
 
+// On-hover behavior for graph nodes (displays tooltip)
+graph3.mouseover = e => {
+    // Increases size of node when hovering
+    e.target.attributes.r.nodeValue *= 2;
+    
+    graph3.tooltip
+        .html(e.target.textContent)
+        .style("left", `${e.offsetX}px`)
+        .style("top", `${e.offsetY + 20}px`)
+        .classed("unselectable", true)
+        .style("background-color", "white")
+        .style("padding", "5px")
+        .style("border-radius", "5px")
+        .style("box-shadow", `2px 2px 5px black`)
+        .transition()
+        .duration(200)
+        .style("opacity", 0.95)
+}
+
+graph3.mouseout = e => {
+    // Reduces size of node after hovering
+    e.target.attributes.r.nodeValue /= 2;
+    // Hides the tooltip
+    graph3.tooltip.transition()
+    .duration(200)
+    .style("opacity", 0);
+}
+
 graph3.render = (startYear, endYear) => {
     d3.csv("./data/netflix.csv").then(data => {
         data = graph3.cleanData(data, startYear, endYear);
@@ -105,24 +137,18 @@ graph3.render = (startYear, endYear) => {
         edges.exit().remove();
 
         // Renders the node circles
-        const nodeCircles = graph3.nodesRef.selectAll("circle").data(nodeObjects);
-        nodeCircles.enter()
+        const nodes = graph3.nodesRef.selectAll("circle").data(nodeObjects);
+        nodes.enter()
             .append("circle")
-            .merge(nodeCircles)
+            .merge(nodes)
             .attr("r", 5)
             .attr("fill", colors.red)
-            .call(graph3.drag(d3Simulation));
-        nodeCircles.exit().remove();
-        
-        // Renders the node labels
-        const nodeLabels = graph3.nodesRef.selectAll("text").data(nodeObjects);
-        nodeLabels.enter()
-            .append("text")
-            .merge(nodeLabels)
+            .call(graph3.drag(d3Simulation))
             .text(d => d["actor"])
-            .classed("unselectable", true);
-        nodeLabels.exit().remove();
-        
+            .on("mouseover", graph3.mouseover)
+            .on("mouseout", graph3.mouseout)
+            .attr("cursor", "grab");
+        nodes.exit().remove();
 
         // Updates the position of the nodes and edges on every tick of the simulation
         d3Simulation.on("tick", () => {
@@ -135,10 +161,6 @@ graph3.render = (startYear, endYear) => {
             graph3.nodesRef.selectAll("circle").data(nodeObjects)
                 .attr("cx", d => d.x)
                 .attr("cy", d => d.y);
-
-            graph3.nodesRef.selectAll("text").data(nodeObjects)
-                .attr("x", d => d.x)
-                .attr("y", d => d.y);
         })
 
         // Adds chart title
