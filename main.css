@@ -32,3 +32,13 @@
     user-select: none;
     pointer-events: none;
 }
+
+.row {
+    display: flex;
+    justify-content: center;
+    background: #F8F8F8;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-right: 20px;
+    margin-left: 20px;
+}

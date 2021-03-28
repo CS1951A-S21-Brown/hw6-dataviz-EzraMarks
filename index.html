@@ -17,16 +17,34 @@
     </div>
     <!--  We included a basic HTML structure for the 3 graphs here. Feel free to change this if you'd like  -->
     <div class="row">
-        <div class="col-lg-6">
-            <div id="graph1"></div>
-            <input type="number" id="start-year" value="1970" onchange="updateStartYear()">
-            <input type="number" id="end-year" value="2000" onchange="updateEndYear()">
-            <div id="graph2"></div><br/>
-        </div>
-        <div class="col-lg-6">
+        <div id="graph1"></div>
+    </div>
+    <br/>
+    <div class="row">
+        <div id="graph2"></div>
+    </div>
+    <div class="row">
+        <p>Choose Release Year Range: &nbsp</p>
+        <input type="number" id="start-year" value="1950" onchange="updateStartYear()" style="height: 1.5em; width: 70px">
+        <p>&nbsp - &nbsp</p>
+        <input type="number" id="end-year" value="2020" onchange="updateEndYear()" style="height: 1.5em; width: 70px">
+    </div>
+    <br/>
+    <div class="row">
+        <div style="position: relative;">
             <div id="graph3"></div>
         </div>
     </div>
+    <br/>
+    <div class="row">
+        <div id="graph4">TEST</div>
+    </div>
+    <br/>
+    <div class="row">
+        <p>Written Questions!</p>
+    </div>
+    <br/>
+    
     <!--Feel free to add more JavaScript files as needed-->
     <script type="text/javascript" src="main.js"></script>
     <script type="text/javascript" src="graph1.js"></script>
