@@ -53,7 +53,8 @@ graph2.render = (startYear, endYear) => {
             .range([0, graph2.innerWidth]);
         graph2.xTicksRef
             .attr("transform", `translate(0, ${graph2.innerHeight})`)
-            .call(d3.axisBottom(x).ticks(numTicks, "d"));
+            .call(d3.axisBottom(x).ticks(numTicks, "d"))
+            .classed("data-label", true);
 
         // Creates a linear scale for the y-axis (average runtime in minutes)
         const yMax = d3.max(data, d => d["avgDuration"]);
@@ -61,7 +62,8 @@ graph2.render = (startYear, endYear) => {
             .domain([0, yMax + 10])
             .range([graph2.innerHeight, 0]);
         graph2.yTicksRef
-            .call(d3.axisLeft(y));
+            .call(d3.axisLeft(y))
+            .classed("data-label", true);
 
         const circles = graph2.circlesRef.selectAll("circle").data(data);
         circles.enter()
@@ -69,7 +71,7 @@ graph2.render = (startYear, endYear) => {
             .merge(circles)
             .attr("cx", d => x(d["year"]))
             .attr("cy", d => y(d["avgDuration"]))
-            .attr("r", 2.5)
+            .attr("r", 3.5)
             .attr("fill", colors.red);
         circles.exit().remove();
             
@@ -85,14 +87,14 @@ graph2.render = (startYear, endYear) => {
             .text("Average Movie Runtime (minutes)")
             .classed("axis-label", true)
             .style("text-anchor", "middle")
-            .attr("transform", `translate(${-45}, ${graph2.innerHeight / 2}) rotate(-90)`);
+            .attr("transform", `translate(${-60}, ${graph2.innerHeight / 2}) rotate(-90)`);
             
         // Adds chart title
         graph2.titleLabel
-            .text("Average Runtime of Movies on Netflix by Release Year")
+            .text(`Average Runtime of Movies on Netflix by Release Year (${releaseYearRange.start} - ${releaseYearRange.end})`)
             .classed("chart-title", true)
-            .attr("transform", `translate(${graph2.innerWidth / 2}, ${-20})`);
+            .attr("transform", `translate(${graph2.innerWidth / 2}, ${-30})`);
     });
 }
 
-graph2.render(startYear, endYear);
+graph2.render(releaseYearRange.start, releaseYearRange.end);

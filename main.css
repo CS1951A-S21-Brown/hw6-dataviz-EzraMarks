@@ -13,15 +13,15 @@
 
 .chart-title {
     text-anchor: middle;
-    font-size: 15px;
+    font-size: 18px;
 }
 
 .axis-label {
-    font-size: 12px;
+    font-size: 15px;
 }
 
 .data-label {
-    font-size: 10px;
+    font-size: 12px;
 }
 
 .unselectable {
@@ -37,8 +37,8 @@
     display: flex;
     justify-content: center;
     background: #F8F8F8;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     margin-right: 20px;
     margin-left: 20px;
 }

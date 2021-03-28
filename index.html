@@ -19,21 +19,34 @@
     <div class="row">
         <div id="graph1"></div>
     </div>
+    <div class="row">
+        <p>*Displays data for the 15 most commonly-occuring genres on Netflix (all time).</p>
+    </div>
     <br/>
     <div class="row">
         <div id="graph2"></div>
     </div>
     <div class="row">
-        <p>Choose Release Year Range: &nbsp</p>
-        <input type="number" id="start-year" value="1950" onchange="updateStartYear()" style="height: 1.5em; width: 70px">
+        <p>Choose Date Range: &nbsp</p>
+        <input type="number" id="release-year-start" value="1940" onchange="updateReleaseYearRange()" style="height: 1.5em; width: 70px">
         <p>&nbsp - &nbsp</p>
-        <input type="number" id="end-year" value="2020" onchange="updateEndYear()" style="height: 1.5em; width: 70px">
+        <input type="number" id="release-year-end" value="2021" onchange="updateReleaseYearRange()" style="height: 1.5em; width: 70px">
     </div>
     <br/>
     <div class="row">
         <div style="position: relative;">
+            <p id="graph3-title" class="chart-title" style="text-align: center;"></p>
             <div id="graph3"></div>
         </div>
+    </div>
+    <div class="row">
+        <p>Choose Date Range: &nbsp</p>
+        <input type="number" id="actor-year-start" value="1940" onchange="updateActorYearRange()" style="height: 1.5em; width: 70px">
+        <p>&nbsp - &nbsp</p>
+        <input type="number" id="actor-year-end" value="2000" onchange="updateActorYearRange()" style="height: 1.5em; width: 70px">
+    </div>
+    <div class="row">
+        <p>*Connections are only shown for actors who have appeared together in at least two films released during the selected date range.</p>
     </div>
     <br/>
     <div class="row">

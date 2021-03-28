@@ -2,6 +2,7 @@
 (() => {
     const width = graph1Width;
     const height = graph1Height;
+    const margin = graph1Margin;
     const numExamples = graph1NumExamples
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
@@ -82,7 +83,7 @@
             .merge(counts)
             .text(d => d.count)
             .attr("x", d => x(d.count) + 10) // Adds a small offset to the right edge of the bar
-            .attr("y", d => y(d["genre"]) + 12) // Adds a small offset to the top edge of the bar
+            .attr("y", d => y(d["genre"]) + 16) // Adds a small offset to the top edge of the bar
             .classed("data-label", true)
             .style("text-anchor", "start");
             
@@ -102,8 +103,8 @@
     
         // Adds chart title
         svg.append("text")
-            .text("Number of Titles Per Genre on Netflix")
+            .text("Number of Titles Per Genre on Netflix*")
             .classed("chart-title", true)
-            .attr("transform", `translate(${innerWidth / 2}, ${-20})`);
+            .attr("transform", `translate(${innerWidth / 2}, ${-30})`);
     });
 })()

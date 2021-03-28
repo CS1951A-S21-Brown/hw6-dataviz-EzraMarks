@@ -18,38 +18,58 @@ graph3.tooltip = d3.select("#graph3")
     .classed("tooltip", true)
     .style("opactity", 0);
 
-graph3.cleanData = (data) => {
+graph3.cleanData = (data, startYear, endYear) => {
     const coworkersDict = {};
-    const year = 1994; // TODO Make variable
 
     data.forEach(show => {
+        // Only includes movies
         if (show["type"] != "Movie") return;
-        if (show["release_year"] != year) return;
+        // Only includes movies in the correct date range
+        const releaseYear = parseInt(show["release_year"]);
+        if ((releaseYear < startYear) || (releaseYear > endYear)) return;
+
         const coworkersString = show["cast"];
         const coworkersList = coworkersString.split(", ");
         coworkersList.forEach(actor => {
             if (!coworkersDict[actor]) {
-                coworkersDict[actor] = new Set()
+                coworkersDict[actor] = {};
             }
-            coworkersList.forEach(coworker => coworkersDict[actor].add(coworker));
+            coworkersList.forEach(coworker => {
+                // Skips adding the actor to their own list of coworkers
+                if (actor == coworker) return;
+                // Counts the number of occurences of this actor-coworker pairing
+                if (!coworkersDict[actor][coworker]) {
+                    coworkersDict[actor][coworker] = 1;
+                } else {
+                    coworkersDict[actor][coworker] += 1;
+                }
+            });
         });
-    });
-
-    const nodesList = Object.keys(coworkersDict).map(actor => {
-        return {"actor": actor};
     });
 
     const edgesList = []
     Object.keys(coworkersDict).forEach(actor => {
         coworkers = coworkersDict[actor];
-        coworkers.forEach(coworker => {
-            edgesList.push({"source": actor, "target": coworker})
+        Object.keys(coworkers).forEach(coworker => {
+            const collaborationCount = coworkers[coworker];
+            // Only includes actor-coworker pairs who have collaborated on at least 2 films
+            if (collaborationCount >= 2) {
+                edgesList.push({"source": actor, "target": coworker})
+            }
         })
     })
 
-    data = {"nodes": nodesList, "edges": edgesList};
-    console.log(data);
+    const nodesSet = new Set();
+    edgesList.forEach(edge => {
+        nodesSet.add(edge.source);
+        nodesSet.add(edge.target);
+    })
+    
+    const nodesList = Array.from(nodesSet).map(actor => {
+        return {"actor": actor};
+    });
 
+    data = {"nodes": nodesList, "edges": edgesList};
     return data;
 }
 
@@ -92,6 +112,7 @@ graph3.mouseover = e => {
         .style("left", `${e.offsetX}px`)
         .style("top", `${e.offsetY + 20}px`)
         .classed("unselectable", true)
+        .classed("data-label", true)
         .style("background-color", "white")
         .style("padding", "5px")
         .style("border-radius", "5px")
@@ -122,8 +143,9 @@ graph3.render = (startYear, endYear) => {
             .force("link", d3.forceLink(edgeObjects).id(d => d["actor"]))
             .force("charge", d3.forceManyBody().strength(-50))
             .force("center", d3.forceCenter(graph3.innerWidth / 2, graph3.innerHeight / 2))
-            .force("x", d3.forceX().strength(0.1))
-            .force("y", d3.forceY().strength(0.1));
+            // Pushes nodes toward the center of the screen
+            .force("x", d3.forceX().strength(0.15))
+            .force("y", d3.forceY().strength(0.15));
         
         // Renders the edges
         const edges = graph3.edgesRef.selectAll("line").data(edgeObjects);
@@ -162,13 +184,7 @@ graph3.render = (startYear, endYear) => {
                 .attr("cx", d => d.x)
                 .attr("cy", d => d.y);
         })
-
-        // Adds chart title
-        graph3.titleLabel
-            .text("Actors Connected by Shared Film Appearances on Netflix")
-            .classed("chart-title", true)
-            .attr("transform", `translate(${graph3.innerWidth / 2}, ${-20})`);
     });
 }
 
-graph3.render(startYear, endYear);
+graph3.render(actorYearRange.start, actorYearRange.end);
