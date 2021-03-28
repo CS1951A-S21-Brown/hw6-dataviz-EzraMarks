@@ -70,7 +70,7 @@ graph2.render = (startYear, endYear) => {
             .attr("cx", d => x(d["year"]))
             .attr("cy", d => y(d["avgDuration"]))
             .attr("r", 2.5)
-            .attr("fill", "#66a0e2");
+            .attr("fill", colors.red);
         circles.exit().remove();
             
         // Adds x-axis label

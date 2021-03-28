@@ -16,9 +16,10 @@ graph3.nodesRef = graph3.svg.append("g");
 
 graph3.cleanData = (data) => {
     const coworkersDict = {};
-    const year = 1994; // TODO Make variable
+    const year = 2000; // TODO Make variable
 
     data.forEach(show => {
+        if (show["type"] != "Movie") return;
         if (show["release_year"] != year) return;
         const coworkersString = show["cast"];
         const coworkersList = coworkersString.split(", ");
@@ -98,9 +99,9 @@ graph3.render = (startYear, endYear) => {
             .append("line")
             .merge(edges)
             .text(d => d["movie"])
-            .attr("stroke", "red")
+            .attr("stroke", colors.darkGray)
             .attr("stroke-opacity", 1)
-            .attr("stroke-width", 4);
+            .attr("stroke-width", 1);
         edges.exit().remove();
 
         // Renders the node circles
@@ -108,8 +109,8 @@ graph3.render = (startYear, endYear) => {
         nodeCircles.enter()
             .append("circle")
             .merge(nodeCircles)
-            .attr("r", 10)
-            .attr("fill", "blue")
+            .attr("r", 5)
+            .attr("fill", colors.red)
             .call(graph3.drag(d3Simulation));
         nodeCircles.exit().remove();
         
@@ -142,7 +143,7 @@ graph3.render = (startYear, endYear) => {
 
         // Adds chart title
         graph3.titleLabel
-            .text("Average Runtime of Movies on Netflix by Release Year")
+            .text("Actors Connected by Shared Film Appearances on Netflix")
             .classed("chart-title", true)
             .attr("transform", `translate(${graph3.innerWidth / 2}, ${-20})`);
     });

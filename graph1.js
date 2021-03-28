@@ -63,8 +63,7 @@
         // Defines color scale
         const color = d3.scaleOrdinal()
             .domain(data.map(d => d["genre"]))
-            // TODO: Choose my own colors
-            .range(d3.quantize(d3.interpolateHcl("#66a0e2", "#81c2c3"), data.length));
+            .range(d3.quantize(d3.interpolateHcl(colors.red, colors.darkRed), data.length));
     
         const bars = svg.selectAll("rect").data(data);
         bars.enter()

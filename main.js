@@ -1,11 +1,17 @@
+// Colors
+const colors = {}
+colors.red = "#E50914";
+colors.darkRed = "#B20710";
+colors.darkGray = "#292929";
+
 const MAX_WIDTH = Math.max(1080, window.innerWidth);
 const MAX_HEIGHT = 720;
 const margin = {top: 40, right: 100, bottom: 40, left: 175};
 
 // GRAPH 1
 const graph1Width = (MAX_WIDTH / 2) - 10;
-const graph1Height = 250;
-const graph1NumExamples = 10;
+const graph1Height = 350;
+const graph1NumExamples = 15;
 
 // GRAPH 2
 const graph2 = {};
@@ -32,3 +38,6 @@ function updateEndYear() {
     endYear = parseInt(document.getElementById("end-year").value);
     graph2.render(startYear, endYear);
 }
+
+// Reload the page when resizing the window to allow for dynamic graph sizes
+window.onresize = () => location.reload();
