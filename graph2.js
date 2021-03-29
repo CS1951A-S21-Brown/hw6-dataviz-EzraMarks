@@ -16,6 +16,7 @@ graph2.yTicksRef = graph2.svg.append("g");
 graph2.xLabel = graph2.svg.append("text");
 graph2.yLabel = graph2.svg.append("text");
 graph2.titleLabel = graph2.svg.append("text");
+graph2.regressionRef = graph2.svg.append("path");
 
 graph2.cleanData = (data, startYear, endYear) => {
     let durationCounter = {};
@@ -94,6 +95,37 @@ graph2.render = (startYear, endYear) => {
             .text(`Average Runtime of Movies on Netflix by Release Year (${releaseYearRange.start} - ${releaseYearRange.end})`)
             .classed("chart-title", true)
             .attr("transform", `translate(${graph2.innerWidth / 2}, ${-30})`);
+
+        
+        /* Draws regression line */
+
+        const quadraticRegressionGenerator = d3.regressionQuad()
+            .x(d => d["year"])
+            .y(d => d["avgDuration"])
+            .domain([startYear, endYear + 0.5]);
+
+        const lineGenerator = d3.line()
+            .x(d => x(d[0]))
+            .y(d => y(d[1]));
+
+        graph2.regressionRef
+            .datum(quadraticRegressionGenerator(data))
+            .attr("d", lineGenerator)
+            .attr("stroke", colors.blue)
+            .attr("stroke-width", "2px")
+            .attr("fill", "none");
+
+
+
+
+
+
+
+
+
+
+
+        
     });
 }
 

@@ -10,6 +10,7 @@
         <script type="text/javascript" src="https://d3js.org/d3-selection.v2.min.js"></script>
         <script type="text/javascript" src="https://d3js.org/d3-drag.v2.min.js"></script>
         <script type="text/javascript" src="https://d3js.org/d3-transition.v2.min.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/d3-regression@1.3.4/dist/d3-regression.min.js"></script>
     </head>
 <body>
     <div class="header">
@@ -54,7 +55,40 @@
     </div>
     <br/>
     <div class="row">
-        <p>Written Questions!</p>
+        <p class="chart-title">Written Responses</p>
+    </div>
+    <div class="row">
+        <ol>
+            <li>
+                <p>My dashboard presents information about the collection of TV shows and movies available on Netflix.</p>
+                <p>My first graph presents information about the number of titles per genre on Netflix. It does so using a bar graph, with each bar representing a different genre and the size of the bar indicating the number of titles in that genre available on Netflix. This graph encapsulates information from all titles on Netflix, regardless of release date. To clearly communicate the most important information and avoid an overly-cluttered graph, only the 15 most common genres are displayed, sorted by the number of titles which that genre contains.</p>
+                <p>My second graph is designed to communicate the average runtime of movies by release year. I am using a scatter plot to accomplish this goal, plotting the average movie runtime for a given year as a single point on the graph. By presenting the average runtimes in this form, it enables the viewer to observe trends in the average duration of movies over time. The user can adjust the time scale of the graph in order to focus on trends during particular periods of time, which is additionally aided by the regression line.</p>
+                <p>My third graph is intended to communicate information about the relationship between cast members of films on Netflix. It is a network graph in which each node represents an actor and edges represent movies in which they both acted. In order to avoid visual clutter and allow the viewer to gleam information about which actors most-frequently work together, I have limited the connections displayed to only show actors which have worked together more than once. In other words, each edge between actors represents at least two movies which they have worked on together. I have additionally removed any actors which share no connections on the graph, in order to highlight the relationships between actors who frequently work together. The graph is additionally filtered by the film’s release date, so that the viewer may focus on actor relationships during a particular time period.</p>
+            </li>
+            <li>
+                <p>D3 was helpful and improved my visualization for the following reasons:</p>
+                <ol>
+                    <li>D3 allowed me to easily create SVG elements based on data; although it would have been possible to generate a bar graph without D3, the built-in data binding method made this task much more concise.</li>
+                    <li>D3 abstracted out many aspects of graph layout and spacing that otherwise would have taken a significant amount of code. For example, the D3 ScaleBand allowed me to automatically create even spacing for the y-axis of my bar chart, allowing me to focus less on element positioning and more on effectively communicating my data.</li>
+                    <li>The physics simulation methods of D3 allowed me to create my third graph presenting actor-actor relationships. Although not strictly necessary to create a network representation, using a physics simulation is extremely useful in automatically evenly distributing the nodes of the graph. Being able to drag around the network connections and having the D3 physics simulation respond additionally adds a very engaging level of interactivity.</li>
+                </ol>
+            </li>
+            <br/>
+            <li>
+                <p>Despite its upsides, D3 is not always the best tool for creating a visualization.</p>
+                <ol>
+                    <li>For very simple and standard graph representations, such a scatter plot or bar chart, D3 is overly-complex. Although writing 100 lines of D3 code is much easier than generating a bar chart from scratch with HTML, this same task would take only a few mouse clicks with a software like Microsoft Excel.</li>
+                    <li>D3 is very customizable, which leaves a lot of room for developer error. It would be quite easy to accidentally write D3 code which displays the data incorrectly. For example, with my scatter plot, I originally wrote code to display the data upside-down, which could have easily gone unnoticed. Using a more simplified charting library with less customizability, this user error would not be as much of an issue.</li>
+                    <li>Although D3 is very powerful, it is best-suited for 2D visualizations. For extremely complex 3D visualizations which involve heavy interaction in 3D environments, D3 would certainly not be the tool for the job. In this case, one might look to tools that utilize 3D rendering, potentially involving a game engine like Unity3D.</li>
+                </ol>
+            </li>
+            <br/>
+            <li>
+                <p>Although my dashboard is built to be generally accessible to users who are sighted, it does present some important accessibility concerns. From “A Comprehensive Guide to Accessible Data Visualization,” my dashboard does appear to support colorbllind users by not requiring the use of color to identify important information on the graphs. Additionally, the contrast levels present in my visualizations are high enough to support users with some loss of contrast perception. However, for users with visual impairments, my dashboard is unfortunately not very accessible. For users using a screen reader, like the user presented in the Betterment article on accessible data visualization, my dashboard does not provide helpful textual translation of the information being visually represented. In order to make my dashboard more accessible for all people, it would be best if I included more textual descriptions of my data which could be read by people using assistive technology. Additionally, my use of on-hover tooltips is not supportive of users who lack fine motor control to use a mouse. Creating an alternative data visualization which did not hide labels with on-hover popups would be much more accessible for all users.</p>
+            </li>
+            <li>
+                <p>When it comes to focusing on accessibility in computer science applications, the limiting factors are often the same on school projects as they are in the real world. When planning my data visualizations, my primary concern was meeting the minimum criteria, which unfortunately did not include prioritizing accessibility. At this planning stage, I could have made accessibility a primary concern, planning not only my visual data representations but also considering how all audiences would be able to access these representations. I additionally could have implemented accessibility features such as alt-text after finishing the rest of the project. However, as is often the case in industry, time was a limiting factor; designing for the majority of people meant not spending the additional time to design for all audiences.</p>
+            </li>
     </div>
     <br/>
     

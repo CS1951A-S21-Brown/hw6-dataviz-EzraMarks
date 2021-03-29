@@ -3,6 +3,8 @@ const colors = {}
 colors.red = "#E50914";
 colors.darkRed = "#B20710";
 colors.darkGray = "#292929";
+colors.blue = "#44465F";
+colors.darkBlue = "#131835"
 
 const WIDTH = Math.min(960, window.innerWidth * 0.8);
 const HEIGHT = 540;
