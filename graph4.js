@@ -99,65 +99,7 @@ graph4.render = () => {
                 .on("mouseover", graph4.mouseover)
                 .on("mouseout", graph4.mouseout);
         });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // // Renders the edges
-        // const edges = graph4.edgesRef.selectAll("line").data(edgeObjects);
-        // edges.enter()
-        //     .append("line")
-        //     .merge(edges)
-        //     .text(d => d["movie"])
-        //     .attr("stroke", colors.darkGray)
-        //     .attr("stroke-opacity", 1)
-        //     .attr("stroke-width", 1);
-        // edges.exit().remove();
-
-        // // Renders the node circles
-        // const nodes = graph4.nodesRef.selectAll("circle").data(nodeObjects);
-        // nodes.enter()
-        //     .append("circle")
-        //     .merge(nodes)
-        //     .attr("r", 5)
-        //     .attr("fill", colors.red)
-        //     .call(graph4.drag(d3Simulation))
-        //     .text(d => d["actor"])
-        //     .on("mouseover", graph4.mouseover)
-        //     .on("mouseout", graph4.mouseout)
-        //     .attr("cursor", "grab");
-        // nodes.exit().remove();
     });
 }
 
-graph4.render(actorYearRange.start, actorYearRange.end);
+graph4.render();
