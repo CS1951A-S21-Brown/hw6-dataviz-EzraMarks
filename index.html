@@ -5,7 +5,6 @@
         <title>Assignment 6 &laquo; Data Visualization Dashboard&raquo;</title>
         <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
         <link rel="stylesheet" href="main.css"/>
-        <!--Feel free to add more CSS files as needed-->
         <script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script>  
         <script type="text/javascript" src="https://d3js.org/d3-selection.v2.min.js"></script>
         <script type="text/javascript" src="https://d3js.org/d3-drag.v2.min.js"></script>
@@ -16,7 +15,6 @@
     <div class="header">
         <h3>Netflix Data Visualization Dashboard</h3>
     </div>
-    <!--  We included a basic HTML structure for the 3 graphs here. Feel free to change this if you'd like  -->
     <div class="row">
         <div id="graph1"></div>
     </div>
@@ -60,20 +58,20 @@
     <div class="row">
         <p class="chart-title">Written Responses</p>
     </div>
-    <div class="row">
+    <div class="text-row">
         <ol>
             <li>
                 <p>My dashboard presents information about the collection of TV shows and movies available on Netflix.</p>
                 <p>My first graph presents information about the number of titles per genre on Netflix. It does so using a bar graph, with each bar representing a different genre and the size of the bar indicating the number of titles in that genre available on Netflix. This graph encapsulates information from all titles on Netflix, regardless of release date. To clearly communicate the most important information and avoid an overly-cluttered graph, only the 15 most common genres are displayed, sorted by the number of titles which that genre contains.</p>
                 <p>My second graph is designed to communicate the average runtime of movies by release year. I am using a scatter plot to accomplish this goal, plotting the average movie runtime for a given year as a single point on the graph. By presenting the average runtimes in this form, it enables the viewer to observe trends in the average duration of movies over time. The user can adjust the time scale of the graph in order to focus on trends during particular periods of time, which is additionally aided by the regression line.</p>
-                <p>My third graph is intended to communicate information about the relationship between cast members of films on Netflix. It is a network graph in which each node represents an actor and edges represent movies in which they both acted. In order to avoid visual clutter and allow the viewer to gleam information about which actors most-frequently work together, I have limited the connections displayed to only show actors which have worked together more than once. In other words, each edge between actors represents at least two movies which they have worked on together. I have additionally removed any actors which share no connections on the graph, in order to highlight the relationships between actors who frequently work together. The graph is additionally filtered by the film’s release date, so that the viewer may focus on actor relationships during a particular time period.</p>
+                <p>My third graph is intended to communicate information about the relationship between cast members of films on Netflix. It is a network graph in which each node represents an actor and edges represent movies in which they both acted. In order to avoid visual clutter and allow the viewer to gleam information about which actors most-frequently work together, I have limited the connections displayed to only show actors who have worked together more than once. In other words, each edge between actors represents at least two movies which they have worked on together. I have additionally removed any actors who share no connections on the graph, in order to highlight the relationships between actors who frequently work together. The graph is additionally filtered by the film’s release date, so that the viewer may focus on actor relationships during a particular time period.</p>
             </li>
             <li>
                 <p>D3 was helpful and improved my visualization for the following reasons:</p>
                 <ol>
                     <li>D3 allowed me to easily create SVG elements based on data; although it would have been possible to generate a bar graph without D3, the built-in data binding method made this task much more concise.</li>
                     <li>D3 abstracted out many aspects of graph layout and spacing that otherwise would have taken a significant amount of code. For example, the D3 ScaleBand allowed me to automatically create even spacing for the y-axis of my bar chart, allowing me to focus less on element positioning and more on effectively communicating my data.</li>
-                    <li>The physics simulation methods of D3 allowed me to create my third graph presenting actor-actor relationships. Although not strictly necessary to create a network representation, using a physics simulation is extremely useful in automatically evenly distributing the nodes of the graph. Being able to drag around the network connections and having the D3 physics simulation respond additionally adds a very engaging level of interactivity.</li>
+                    <li>The physics simulation methods of D3 allowed me to create my third graph presenting actor-actor relationships. Although not strictly necessary to create a network representation, using a physics simulation is extremely useful in automatically evenly distributing the nodes of the graph. Being able to drag around the network connections and having the D3 physics simulation respond additionally adds an engaging level of interactivity.</li>
                 </ol>
             </li>
             <br/>
@@ -97,7 +95,7 @@
     <div class="row">
         <p class="chart-title">Extra Credit</p>
     </div>
-    <div class="row">
+    <div class="text-row">
         <ol>
             <li>
                 <p>I implemented a regression line for my second graph, "Average Runtime of Movies on Netflix by Release Year." This quadratic regression line updates dynamically when the date range is updated, best fitting the trend in the data displayed on the graph.</p>
@@ -110,7 +108,7 @@
                 </ul>
             </li>
             <br/>
-            <li>My graphs all dynamically resize to fit the page, without having to manually reload the page.</li>
+            <li>My graphs all dynamically resize to fit the window, without having to manually reload the page.</li>
         </ul>
     </div>
     </div>
