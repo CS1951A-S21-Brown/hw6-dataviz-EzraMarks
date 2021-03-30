@@ -111,7 +111,7 @@ graph2.render = (startYear, endYear) => {
         graph2.regressionRef
             .datum(quadraticRegressionGenerator(data))
             .attr("d", lineGenerator)
-            .attr("stroke", colors.blue)
+            .attr("stroke", colors.pink)
             .attr("stroke-width", "2px")
             .attr("fill", "none");
 

@@ -5,6 +5,7 @@ colors.darkRed = "#B20710";
 colors.darkGray = "#292929";
 colors.blue = "#44465F";
 colors.darkBlue = "#131835"
+colors.pink = "#E49CA4"
 
 const WIDTH = Math.min(960, window.innerWidth * 0.8);
 const HEIGHT = 540;
@@ -28,6 +29,12 @@ const graph3 = {};
 graph3.width = WIDTH
 graph3.height = HEIGHT;
 graph3.margin = MARGIN;
+
+// GRAPH 4
+const graph4 = {};
+graph4.width = WIDTH
+graph4.height = HEIGHT;
+graph4.margin = MARGIN;
 
 
 const releaseYearRange = {}

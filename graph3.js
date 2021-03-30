@@ -16,7 +16,7 @@ graph3.nodesRef = graph3.svg.append("g");
 graph3.tooltip = d3.select("#graph3")
     .append("div")
     .classed("tooltip", true)
-    .style("opactity", 0);
+    .style("opacity", 0);
 
 graph3.cleanData = (data, startYear, endYear) => {
     const coworkersDict = {};
